@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 
 
 class PropertyURLScraper:
@@ -19,7 +19,7 @@ class PropertyURLScraper:
 
         try:
             while True:
-                WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'prop-name')))
+                WebDriverWait(self.driver, 10).until(ec.presence_of_element_located((By.CLASS_NAME, 'prop-name')))
                 property_urls.extend(self._extract_property_urls())
 
                 next_page_link = self._get_next_page_link()
@@ -66,10 +66,10 @@ class PropertyInfoScraper:
 
             # Wait for the size and price elements to be present
             size_elements = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_all_elements_located((By.CSS_SELECTOR, "td:nth-child(3) a.Unit__header"))
+                ec.presence_of_all_elements_located((By.CSS_SELECTOR, "td:nth-child(3) a.Unit__header"))
             )
             price_elements = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_all_elements_located((By.CSS_SELECTOR, "td:nth-child(4) a.Unit__header"))
+                ec.presence_of_all_elements_located((By.CSS_SELECTOR, "td:nth-child(4) a.Unit__header"))
             )
 
             # Extract text from size and price elements
@@ -78,7 +78,7 @@ class PropertyInfoScraper:
 
             # Extract building name
             building_name_element = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "h1.title"))
+                ec.presence_of_element_located((By.CSS_SELECTOR, "h1.title"))
             )
             building_name = building_name_element.text.strip()
 
