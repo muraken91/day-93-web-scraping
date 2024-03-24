@@ -39,7 +39,7 @@ def main():
                 # Write scraped data to CSV
                 for i in range(len(size)):
                     writer.writerow([building_name[i], size[i], price[i]])
-                    print("Data appended for:", building_name[i])
+                print("Data appended for:", building_name[0])
 
         finally:
             # Close the Selenium driver

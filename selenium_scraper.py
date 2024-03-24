@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -59,10 +60,13 @@ class PropertyInfoScraper:
 
     def scrape_property_info(self):
         try:
-            # Click the "Show More" button if it exists
-            show_more_button = self.driver.find_element(By.CLASS_NAME, 'olm-show-more-units')
-            if show_more_button:
-                show_more_button.click()
+            # Attempt to locate the "Show More" button
+            try:
+                show_more_button = self.driver.find_element(By.CLASS_NAME, 'olm-show-more-units')
+                show_more_button.click()  # Click the button if found
+            except NoSuchElementException:
+                # No "Show More" button found
+                print("No 'Show More' button found.")
 
             # Wait for the size and price elements to be present
             size_elements = WebDriverWait(self.driver, 10).until(
